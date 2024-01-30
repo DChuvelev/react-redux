@@ -5,18 +5,17 @@ const counterSlice = createSlice({
         value: 0,
     },
     reducers: {
-        inc: (state) => {
+        incValue: (state) => {
             return {...state, value: state.value + 1}
         },
-        dec: (state) => {
+        decValue: (state) => {
             return {...state, value: state.value - 1}
         },
-        set: (state, action) => {
-            console.log(typeof(action.payload));
+        setValue: (state, action) => {
             return {...state, value: action.payload}
         }
     }
 })
 
-export const { inc, dec, set } = counterSlice.actions;
+export const { incValue, decValue, setValue } = counterSlice.actions;
 export default counterSlice.reducer;

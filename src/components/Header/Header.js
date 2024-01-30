@@ -1,32 +1,31 @@
 import React from "react";
 import './Header.css';
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { inc, dec, set } from '../../redux/counterSlice';
+import { incValue, decValue, setValue } from '../../redux/counterSlice';
+import { setInput } from '../../redux/inputSlice';
 
 export default function Header() {
     const counter = useSelector(state => state.counter.value);
+    const input = useSelector(state => state.input.value);
     const dispatch = useDispatch();
 
-    const [ number, setNumber ] = useState(0);
-
     const handleNumberChange = (evt) => {
-        setNumber(evt.target.value);
+        dispatch(setInput(evt.target.value));
     }
 
     const handleKeyDown = (evt) => {
         if (evt.key === 'Enter') {
-            dispatch(set(Number(number)));
-            setNumber("");
+            dispatch(setValue(Number(input)));
+            dispatch(setInput(''));
         }
     }
 
     const handlePlusBtn = () => {
-        dispatch(inc());
+        dispatch(incValue());
     }
 
     const handleMinusBtn = () => {
-        dispatch(dec());
+        dispatch(decValue());
     }
 
     return (
@@ -35,7 +34,7 @@ export default function Header() {
             <div className="header__fields">                
                 <input 
                     type="Number" 
-                    value={number}
+                    value={input}
                     className="header__input" 
                     placeholder="Please input header value" 
                     onChange={handleNumberChange}
